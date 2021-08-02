@@ -1,0 +1,29 @@
+services:
+  dzikieweze:
+    build:
+      context: C:\Users\mrk38\source\repos\chujemuje
+      dockerfile: chujemuje/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: dzikieweze
+    ports:
+    - target: 80
+    - target: 443
+    volumes:
+    - C:\Users\mrk38\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\mrk38\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+  sqlserverService:
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: BigPassw0rd
+    expose:
+    - '5000'
+    hostname: sqlserver
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    ports:
+    - published: 5000
+      target: 5000
+    volumes:
+    - C:\Users\mrk38\source\repos\chujemuje\data\mssql:/var/opt/mssql3:rw
+version: '3.4'

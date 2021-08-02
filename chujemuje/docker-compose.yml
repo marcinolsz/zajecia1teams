@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  dzikieweze:
+    image: ${DOCKER_REGISTRY-}dzikieweze
+    build:
+      context: .
+      dockerfile: chujemuje/Dockerfile
+
+  sqlserverService:  
+    image: mcr.microsoft.com/mssql/server:2017-latest 
+    hostname: 'sqlserver'  
+    environment:  
+      ACCEPT_EULA: "Y"  
+      SA_PASSWORD: "BigPassw0rd"  
+    volumes:  
+      - ./data/mssql:/var/opt/mssql3  
+    ports:  
+      - '5000:5000'  
+    expose:  
+      - 5000  
